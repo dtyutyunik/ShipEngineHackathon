@@ -1,5 +1,5 @@
 
-  import React from 'react';
+  import React, { Component } from 'react';
   import PropTypes from 'prop-types';
   import Avatar from '@material-ui/core/Avatar';
   import Button from '@material-ui/core/Button';
@@ -13,6 +13,8 @@
   import Paper from '@material-ui/core/Paper';
   import Typography from '@material-ui/core/Typography';
   import withStyles from '@material-ui/core/styles/withStyles';
+  import Fire from '../../firebase';
+
   
   const styles = theme => ({
     main: {
@@ -46,10 +48,41 @@
     },
   });
   
-  function SignUp(props) {
-    const { classes } = props;
+  class SignUp extends Component {
+    constructor(props) {
+      super(props)
+      const {classes} = props;
+      this.classes = classes;
+      this.state = {
+        user: {
+          username: "",
+          email: "",
+          password: "",
+          confirm_password: "",
+        }
+      }
+
+    }
+    handleSignUp=(e)=>{
+      e.preventDefault();
+      Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
+                }).catch(function(error) {
+                  console.log(error)
+                });
   
+      console.log('signed up')
+    }
+
+  handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log('submitted')
+  }
+  
+
+  render() {
+ const {classes} = this;
     return (
+      
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
@@ -59,7 +92,8 @@
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form}>
+
+          <form className={classes.form}   >
           <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">username</InputLabel>
               <Input id="username" username="username" autoComplete="username" autoFocus />
@@ -86,7 +120,7 @@
               variant="contained"
               color="primary"
               className={classes.submit}
-  
+
             >
               Sign Up
             </Button>
@@ -94,6 +128,8 @@
         </Paper>
       </main>
     );
+  }
+    
   }
   
   SignUp.propTypes = {
@@ -103,6 +139,7 @@
   export default withStyles(styles)(SignUp);
   
   
+
 
 
 
