@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-export default function ToAddress(props){
+export default function FromAddress(props){
 
     return(
       <div>
-      <h1>To address</h1>
+      <h1>From address</h1>
       <form onSubmit={props.handleSubmit}>
         <input type='text'
         placeholder='name'

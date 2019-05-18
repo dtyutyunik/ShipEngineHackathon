@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default function PackageForum(props){
+export default function SignUp(props){
 
     return(
       <div>
