@@ -5,8 +5,10 @@ import ToAddress from './components/ToAddress/ToAddress';
 import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
 import Fire from './firebase.js';
+import axios from 'axios';
 
 const SANDBOX_KEY = process.env.REACT_APP_SHIPENGINE_SANDBOX_API_KEY;
+const URL= 'http://localhost:8000';
 
 
 class App extends Component {
@@ -68,6 +70,26 @@ class App extends Component {
 
   }
 
+  checkAddress= async(e)=>{
+
+    console.log('address clicked')
+    // const {name,address,zipcode}= this.state;
+    e.preventDefault();
+    // axios.get(`${URL}/voting/${this.state.state}/${this.state.place}`);
+    try{
+      let r=await axios.post(`${URL}/api/v1/validateaddress/`,{address:
+        this.state.address
+      })
+      console.log(r.data)
+    }catch(e){
+      console.log(e)
+    }
+
+
+
+
+  }
+
   handleSubmit=(e)=>{
     e.preventDefault();
     console.log('submitted')
@@ -89,13 +111,13 @@ class App extends Component {
         email={email}
         password={password}
         handleChange={this.handleChange}
-        handleLogin={this.handleSignUp}
+        handleSubmit={this.handleSignUp}
       />:
      <LogIn
         email={email}
         password={password}
         handleChange={this.handleChange}
-        handleLogin={this.handleLogin}
+        handleSubmit={this.handleSignin}
         />}
 
 <button onClick={this.signOut}> signOut</button>
@@ -106,7 +128,7 @@ class App extends Component {
         address={address}
         zipcode={zipcode}
         handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}/>
+        handleSubmit={this.checkAddress}/>
       </div>
     );
   }

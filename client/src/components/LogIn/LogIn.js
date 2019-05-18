@@ -4,7 +4,7 @@ export default function LogIn(props){
 
     return(
       <div>
-      <form onSubmit={props.handleLogin}>
+      <form onSubmit={props.handleSubmit}>
         <input type='text'
         placeholder='email'
         name='email'

@@ -10,10 +10,12 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const https = require('https');      // Make the request to ShipEngine, FTL API
 const app = express();
+const cors = require('cors');
 
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 
 

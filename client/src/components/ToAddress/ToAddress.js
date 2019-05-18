@@ -4,7 +4,7 @@ export default function ToAddress(props){
 
     return(
       <div>
-      <form onSubmit={props.submit}>
+      <form onSubmit={props.handleSubmit}>
         <input type='text'
         placeholder='name'
         name='name'
