@@ -85,9 +85,6 @@ class App extends Component {
       console.log(e)
     }
 
-
-
-
   }
 
   handleSubmit=(e)=>{
@@ -103,6 +100,7 @@ class App extends Component {
 
     return (
       <div className="App">
+    <h1>Welcome to our APP</h1>
       <a onClick={()=>this.handleView('signup')}>SignUp</a>
       <br/>
       <a onClick={()=>this.handleView('login')}>Log In</a>
