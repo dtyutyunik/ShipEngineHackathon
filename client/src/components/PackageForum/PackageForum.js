@@ -6,16 +6,16 @@ export default function SignUp(props){
       <div>
       <form onSubmit={props.handleSubmit}>
         <input type='text'
-        placeholder='email'
-        name='email'
-        value={props.email}
+        placeholder='value'
+        name='value'
+        value={props.value}
         onChange={props.handleChange}
         />
-        <input type='password'
-        placeholder='password'
-        name='password'
-        value={props.password}
-        onChange={props.handleChange}
+        <input type='type'
+        placeholder='unit'
+        name='unit'
+        value={props.unit}
+        onChange={props.unit}
         />
       <button type='submit'>SignUp</button>
       </form>

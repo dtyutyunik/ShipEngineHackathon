@@ -7,17 +7,18 @@ export default function Weight(props){
       <h1>Weignt</h1>
       <form onSubmit={props.handleSubmit}>
         <input type='text'
-        placeholder='amount'
-        name='amount'
-        value={props.amount}
+        placeholder='value'
+        name='value'
+        value={props.value}
         onChange={props.handleChange}
         />
         <input type='text'
         placeholder='ounces'
-        name='ounces'
-        value={props.ounces}
+        name='unit'
+        value={props.unit}
         onChange={props.handleChange}
         />
+        <button type='submit'>Calculate prices</button>
       </form>
 
       </div>
