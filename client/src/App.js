@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Switch, Route } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import ToAddress from './components/ToAddress/ToAddress';
 import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
+import Home from './components/Home/Home';
 import Fire from './firebase.js';
 import axios from 'axios';
 
@@ -12,6 +14,12 @@ const URL= 'http://localhost:8000';
 
 
 class App extends Component {
+  // render() {
+  //   return (
+  //       <LogIn/>
+  //   );
+  // }
+
 
   constructor(props){
     super(props);
@@ -97,7 +105,6 @@ class App extends Component {
   render(){
     const {name,address,zipcode,email,password}=this.state;
 
-
     return (
       <div className="App">
     <h1>Welcome to our APP</h1>
@@ -116,10 +123,9 @@ class App extends Component {
         password={password}
         handleChange={this.handleChange}
         handleSubmit={this.handleSignin}
-        />}
-
+        />      
+        }
 <button onClick={this.signOut}> signOut</button>
-
 
       <ToAddress
         name={name}
@@ -127,7 +133,9 @@ class App extends Component {
         zipcode={zipcode}
         handleChange={this.handleChange}
         handleSubmit={this.checkAddress}/>
+        
       </div>
+    
     );
   }
 }
