@@ -40,13 +40,7 @@ app.post(validateAddrUrl, async (req, res) => {
     // TODO: get the api key from the header
     let se_apikey = process.env.API_KEY;
     let se_addr = {
-            name: 'Mickey',
-            phone: '714-781-4565',
-            company_name: 'The Walt Disney Company',
             address_line1: req.body.address,
-            city_locality: 'Burbank',
-            state_province: 'CA',
-            postal_code: '91521',
             country_code: 'US'
     };
 
@@ -60,13 +54,7 @@ app.post(validateAddrUrl, async (req, res) => {
             },
             data: [se_addr]
         });
-        // let response = await axios.get("https://api.shipengine.com/v1/carriers", {
-        //     headers: {
-        //         "API-KEY": se_apikey,
-        //         "Content-Type": "application/json"
-        //     }
-        // });
-
+        var res_msg = response.data[0].status;
 
         console.log(response.data);
     } catch (e) {
@@ -74,45 +62,8 @@ app.post(validateAddrUrl, async (req, res) => {
         console.log(se_apikey);
     }
 
-    // let options = {
-    //     "method": "POST",
-    //     "hostname": "https://api.shipengine.com/",
-    //     "path": "v1/addresses/validate",
-    //     "headers": {
-    //         "Content-Type": "application/json",
-    //         "api-key": se_apikey
-    //     }
-    // };
-
-
-    // let sereq = https.request(options, function (seres) {
-
-    //     seres.on("data", (data) => {
-    //         console.log("response from se: "+ data);
-    //     });
-
-    //     // res.on("end", function () {
-    //     //     var body = Buffer.concat(chunks);
-    //     //     console.log(body.toString());
-    //     // });
-    // });
-
-    // sereq.write(JSON.stringify([
-    //     {
-    //         name: 'Mickey',
-    //         phone: '714-781-4565',
-    //         company_name: 'The Walt Disney Company',
-    //         address_line1: req.body.address,
-    //         city_locality: 'Burbank',
-    //         state_province: 'CA',
-    //         postal_code: '91521',
-    //         country_code: 'US'
-    //     }
-    // ]));
-    // // req.end();
-    // console.log("apikey: " + apikey);
-    return res.status(200).send({
-        success: 'true'
+   return res.status(200).send({
+        status: res_msg
     })
 });
 
