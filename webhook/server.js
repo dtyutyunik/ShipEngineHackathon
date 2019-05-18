@@ -49,15 +49,24 @@ app.post(validateAddrUrl, async (req, res) => {
     };
 
     try {
-        let response = await axios.post("https://api.shipengine.com/v1/addresses/validate", {
+        let response = await axios.request({
+            url: "https://api.shipengine.com/v1/addresses/validate",
+            method: "POST",
             headers: {
                 "API-KEY": se_apikey,
                 "Content-Type": "application/json"
             },
-            data: se_addr
+            data: [se_addr]
         });
+        // let response = await axios.get("https://api.shipengine.com/v1/carriers", {
+        //     headers: {
+        //         "API-KEY": se_apikey,
+        //         "Content-Type": "application/json"
+        //     }
+        // });
 
-       console.log(response.data);
+
+        console.log(response.data);
     } catch (e) {
         console.log(e);
         console.log(se_apikey);
