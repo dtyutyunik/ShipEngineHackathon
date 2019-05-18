@@ -11,6 +11,8 @@ const axios = require('axios');
 const https = require('https');      // Make the request to ShipEngine, FTL API
 const app = express();
 const cors = require('cors');
+const API_KEY=process.env.API_KEY;
+
 
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_MAPS_API_KEY
@@ -18,7 +20,6 @@ const googleMapsClient = require('@google/maps').createClient({
 
 
 // parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -84,11 +85,12 @@ app.post(validateAddrUrl, async (req, res) => {
             data: [se_addr]
         });
         var res_msg = response.data[0].status;
+        // var res_msg = response.data;
 
         console.log(response.data);
     } catch (e) {
         console.log(e);
-        console.log(se_apikey);
+
     }
 
     return res.status(200).send({
