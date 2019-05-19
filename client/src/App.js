@@ -8,7 +8,6 @@ import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
 import Home from './components/Home/Home';
 import Weight from './components/Weight/Weight';
-import PackageOrder from './components/PackageOrder/PackageOrder';
 import Fire from './firebase.js';
 import axios from 'axios';
 
@@ -55,8 +54,8 @@ class App extends Component {
       },
 
       weight:{
-        amount: '',
-        ounces: ''
+        value: '',
+        unit: ''
       },
 
       package:[
@@ -150,10 +149,16 @@ class App extends Component {
         }))
 
   }
-
   handleWeight=(e)=>{
-
+    const {name,value}=e.target;
+    this.setState(prevState=>({
+          weight:{
+            ...prevState.weight,
+            [name]:value
+          }
+        }))
   }
+
 
   handleChange=(e)=>{
     const {name,value}=e.target;
@@ -203,9 +208,7 @@ class App extends Component {
     console.log('to address submited')
   }
 
-  handleWeight=()=>{
 
-  }
 
   processPackage=()=>{
     console.log(this.state.user.uid)
@@ -228,6 +231,46 @@ class App extends Component {
     }else{
       console.log('false')
     }
+  }
+
+  calculatePackages=async(e)=>{
+    e.preventDefault();
+    console.log('packages');
+
+    // shipFromAddress:{
+    //   name: '',
+    //   phone: '',
+    //   company_name: '',
+    //   address_line1: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   country: 'US'
+    // },
+    // shipToAddress:{
+    //   name: '',
+    //   phone: '',
+    //   company_name: '',
+    //   address_line1: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   country: 'US'
+    // },
+    // weight:{
+    //   amount: '',
+    //   ounces: ''
+    // }
+    try{
+
+      let r=await axios.post(`${URL}/api/v1/getRates/`,{toAddr:
+        this.state.shipToAddress, fromAddr: this.state.shipFromAddress, weight: this.state.weight
+      })
+      console.log(r)
+    }catch(e){
+      console.log(e)
+    }
+
   }
   render(){
     const {email,password}=this.state;
@@ -287,10 +330,9 @@ class App extends Component {
         <Weight
         state={fromAddr.state}
         zip={fromAddr.zip}
-        handleChange={this.handleChange}
-        handleSubmit={this.checkAddress}/>
-        
-      
+        handleChange={this.handleWeight}
+        handleSubmit={this.calculatePackages}
+        />
 <button onClick={this.processPackage}>show packages</button>
 
 

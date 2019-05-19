@@ -93,18 +93,24 @@
             Sign Up
           </Typography>
 
-          <form className={classes.form}   >
+          <form className={classes.form} onSubmit={this.props.handleSubmit}  >
           <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">username</InputLabel>
               <Input id="username" username="username" autoComplete="username" autoFocus />
             </FormControl>  
-            <FormControl margin="normal" required fullWidth>
+            <FormControl margin="normal" required fullWidth >
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input id="email" name="email" autoComplete="email" autoFocus 
+              value={this.props.email}
+              onChange={this.props.handleChange}
+              />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input name="password" type="password" id="password" autoComplete="current-password" />
+              <Input name="password" type="password" id="password" autoComplete="current-password" 
+               value={this.props.password}
+              onChange={this.props.handleChange}
+              />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Confirm Password</InputLabel>
@@ -138,33 +144,6 @@
   
   export default withStyles(styles)(SignUp);
   
-  
-
-
-
-
-    // return(
-    //   <div>
-    //   <form onSubmit={props.handleSubmit}>
-    //     <input type='text'
-    //     placeholder='email'
-    //     name='email'
-    //     value={props.email}
-    //     onChange={props.handleChange}
-    //     />
-    //     <input type='password'
-    //     placeholder='password'
-    //     name='password'
-    //     value={props.password}
-    //     onChange={props.handleChange}
-    //     />
-    //   <button type='submit'>SignUp</button>
-    //   </form>
-
-    //   </div>
-
-
-    // )
 
 
 

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -39,13 +40,19 @@ const ranges = [
 ];
 
 class Weight extends React.Component {
-  state = {
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  };
+  constructor(props) {
+    super(props)
+    const {classes} = props
+    this.classes = classes;
+    this.state = {
+      amount: '',
+      password: '',
+      weight: '',
+      weightRange: '',
+      showPassword: false,
+    };
+  }
+ 
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -56,17 +63,21 @@ class Weight extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes } = this;
 
     return (
       <div className={classes.root}>
         <TextField
+        onSubmit={this.props.handleSubmit}
+          
           id="outlined-simple-start-adornment"
           className={classNames(classes.margin, classes.textField)}
           variant="outlined"
-          label="With outlined TextField"
+          label="Value"
+          value ={this.props.value}
+          onChange={this.props.handleChange}
           InputProps={{
-            startAdornment: <InputAdornment position="start">ounces</InputAdornment>,
+            startAdornment: <InputAdornment position="start">Value</InputAdornment>,
           }}
         />  
 
@@ -74,49 +85,26 @@ class Weight extends React.Component {
           id="outlined-adornment-weight"
           className={classNames(classes.margin, classes.textField)}
           variant="outlined"
-          label="Weight"
-          value={this.state.weight}
-          onChange={this.handleChange('weight')}
+          label="Ounces"
+          value={this.props.unit}
+          onChange={this.props.handleChange}
           helperText="Weight"
           InputProps={{
-            endAdornment: <InputAdornment position="end">Kg</InputAdornment>,
+            endAdornment: <InputAdornment position="end">unit</InputAdornment>,
           }}
         />
+        <Button type='submit'>Calculate prices</Button>
+        
 
       </div>
     );
   }
 }
 
-OutlinedInputAdornments.propTypes = {
+Weight.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Weight);
 
-// export default function Weight(props){
 
-//     return(
-//       <div>
-//       <h1>Weignt</h1>
-//       <form onSubmit={props.handleSubmit}>
-//         <input type='text'
-//         placeholder='value'
-//         name='value'
-//         value={props.value}
-//         onChange={props.handleChange}
-//         />
-//         <input type='text'
-//         placeholder='ounces'
-//         name='unit'
-//         value={props.unit}
-//         onChange={props.handleChange}
-//         />
-//         <button type='submit'>Calculate prices</button>
-//       </form>
-
-//       </div>
-
-
-//     )
-// }
