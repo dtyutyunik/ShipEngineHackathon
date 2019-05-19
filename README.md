@@ -28,4 +28,4 @@ Centeralized shipping platform made for resellers to help organize manage shipme
 
 ## Demo ##
 
-+ [Link to Youtube Video]
++ [View Prototype](https://www.figma.com/proto/E2mmuVUHcCIXXCrNeYUQxrpe/Shimple?node-id=20%3A292&viewport=1622%2C337%2C0.17979854345321655&scaling=min-zoom)
