@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch,HashRouter, Route } from "react-router-dom";
+import { Switch, BrowserRouter as Router, HashRouter, Route, NavLink } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import Routes from './Routes';
@@ -16,6 +16,9 @@ import RenderCarriers from './components/RenderCarriers/RenderCarriers';
 
 import Fire from './firebase.js';
 import axios from 'axios';
+import LandingPage from './components/LandingPage/LandingPage';
+import Dashboard from './components/Dashboard/Dashboard';
+
 
 const SANDBOX_KEY = process.env.REACT_APP_SHIPENGINE_SANDBOX_API_KEY;
 // const URL= 'http://localhost:8000';
@@ -24,15 +27,25 @@ const URL= 'https://openerp2019.appspot.com/api/v1';
 
 class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state=({
+    this.state = ({
       email: '',
       password:'',
       user: {},
       view: '',
       navView: '',
-      shipFromAddress:{
+      shipFromAddress: {
+        name: '',
+        phone: '',
+        company_name: '',
+        address_line1: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: 'US'
+      },
+      shipToAddress: {
         name: '',
         phone: '',
         company_name: '',
@@ -43,23 +56,12 @@ class App extends Component {
         country: 'US'
       },
 
-      shipToAddress:{
-        name: '',
-        phone: '',
-        company_name: '',
-        address_line1: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: 'US'
-      },
-
-      weight:{
+      weight: {
         value: '',
         unit: 'Ounce'
       },
 
-      package:[
+      package: [
         {
           shipToAdress: '',
           shipfromAddress: '',
@@ -73,84 +75,68 @@ class App extends Component {
       ],
       carriers: [],
 
-
     })
   }
 
-  // "name": "Mickey and Minnie Mouse",
-  //    "phone": "714-781-4565",
-  //    "company_name": "The Walt Disney Company",
-  //    "address_line1": "500 South Buena Vista Street",
-  //    "city_locality": "Burbank",
-  //    "state_province": "CA",
-  //    "postal_code": "91521",
-  //    "country_code": "US"
+  authListener = () => {
+    Fire.fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({user});
+        console.log(user);
+      } else {
+        this.setState({user:null})
+      }
+    });
+  }
 
 
-  authListener=()=>{
-      Fire.fire.auth().onAuthStateChanged((user)=>{
-        if(user){
-          this.setState({user});
-          // console.log(user);
-        }else{
-          this.setState({user:null})
-        }
-
-      });
-    }
-    componentDidMount=()=>{
-      this.authListener();
-    }
+  componentDidMount = () => {
+    this.authListener();
+  }
 
 
 
-  signOut=()=>{
+  signOut = () => {
     Fire.fire.auth().signOut();
     console.log('signed out')
   }
 
-  // handleSignUp=(e)=>{
-  //   e.preventDefault();
-  //   Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
-  //             }).catch(function(error) {
-  //               console.log(error)
-  //             });
-
-  //   console.log('signed up')
-  // }
-
-  handleSignin=(e)=>{
+  handleSignin = (e) => {
     e.preventDefault();
-    Fire.fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then({
-              }).catch(function(error) {
-                console.log(error)
-              });
+    Fire.fire
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then()
+      .catch(function(error) {
+        console.log(error)
+      });
     console.log('logeed in')
   }
 
 
-  handleAddressTo=(e)=>{
-    const {name,value}=e.target;
+  handleAddressTo = (e) => {
+    const {name, value} = e.target;
 
-    this.setState(prevState=>({
-        shipToAddress:{
+    this.setState(prevState => ({
+        shipToAddress: {
           ...prevState.shipToAddress,
-          [name]:value
+          [name]: value
         }
     }))
   }
 
-  handleAddressFrom=(e, fromOrTo)=>{
-    const {name,value}=e.target;
-    this.setState(prevState=>({
+  handleAddressFrom = (e, fromOrTo) => {
+    const {name, value} = e.target;
+    this.setState(prevState => ({
           shipFromAddress:{
             ...prevState.shipFromAddress,
-            [name]:value
+            [name]: value
           }
         }))
 
   }
-  handleWeight=(e)=>{
+
+  handleWeight = (e) => {
     const {name,value}=e.target;
     this.setState(prevState=>({
           weight:{
@@ -273,42 +259,46 @@ class App extends Component {
     const fromAddr = this.state.shipFromAddress;
 
     let navigationView='';
-    switch(navView){
-      case 'inputOrder': navigationView=
-          <div>
-            <ToAddress
-            name={name}
-            phone={phone}
-            company_name={company_name}
-            address_line1={address_line1}
-            city={city}
-            state={state}
-            zip={zip}
-            handleChange={this.handleAddressTo}
-            handleSubmit={this.toAddressSubmited}/>
+    switch (navView) {
+      case 'inputOrder':
+        navigationView = (
+              <div>
+                <ToAddress
+                name={name}
+                phone={phone}
+                company_name={company_name}
+                address_line1={address_line1}
+                city={city}
+                state={state}
+                zip={zip}
+                handleChange={this.handleAddressTo}
+                handleSubmit={this.toAddressSubmited}/>
 
-            <FromAddress
-              name={fromAddr.name}
-              phone={fromAddr.phone}
-              company_name={fromAddr.company_name}
-              address_line1={fromAddr.address_line1}
-              city={fromAddr.city}
-              state={fromAddr.state}
-              zip={fromAddr.zip}
-              handleChange={this.handleAddressFrom}
-              handleSubmit={this.toAddressSubmited}/>
+                <FromAddress
+                  name={fromAddr.name}
+                  phone={fromAddr.phone}
+                  company_name={fromAddr.company_name}
+                  address_line1={fromAddr.address_line1}
+                  city={fromAddr.city}
+                  state={fromAddr.state}
+                  zip={fromAddr.zip}
+                  handleChange={this.handleAddressFrom}
+                  handleSubmit={this.toAddressSubmited}/>
 
-            <Weight
-            state={fromAddr.state}
-            zip={fromAddr.zip}
-            handleChange={this.handleWeight}
-            handleSubmit={this.calculatePackages}
-            />
-            </div>;
-            break;
-          case 'shipments': navigationView=<RenderCarriers
+                <Weight
+                state={fromAddr.state}
+                zip={fromAddr.zip}
+                handleChange={this.handleWeight}
+                handleSubmit={this.calculatePackages}
+                />
+              </div>
+          );
+          break;
+      case 'shipments':
+        navigationView = (<RenderCarriers
           carriers={this.state.carriers}
-          buyThis={this.buyThis}/>; break;
+          buyThis={this.buyThis}/>);
+        break;
 
     }
 
@@ -397,22 +387,11 @@ class App extends Component {
 
       </div>
 
+  
+
     );
     
   }
 }
 
 export default App;
-
-// <nav className='internalNav'>
-// <a onClick={()=>this.viewChange('inputOrder')}>Input Order</a>
-// <a onClick={()=>this.viewChange('shipments')}>shipments</a>
-// </nav>
-//
-//
-// <div>
-// {navigationView}
-// </div>
-//
-//
-// <button onClick={this.processPackage}>show packages</button>

@@ -159,8 +159,7 @@ function Home(props) {
           </Typography> .
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" component="p">
-            An effective way to scale your business.
-            "If it ain't Shimple&apos;it ain't right"
+          Centeralized shipping platform made for resellers to help organize manage shipment and orders from multiple carriers and selling platforms.            "If it ain't Shimple&apos;it ain't right"
           </Typography>
         </div>
         {/* End hero unit */}

@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Link, Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import WelcomeBanner from '../WelcomeBanner/WelcomeBanner';
 
 
 const styles = theme => ({
@@ -50,8 +51,10 @@ const styles = theme => ({
 function SignIn(props) {
   const { classes } = props;
 
-  return (
-    <main className={classes.main}>
+    return (
+        <main className={classes.main}>
+
+        <WelcomeBanner />
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -74,14 +77,13 @@ function SignIn(props) {
             label="Remember me"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
 
-          >
-            Sign in
+        >
+            <NavLink to="/dashboard">Log In</NavLink>
           </Button>
         </form>
       </Paper>
