@@ -1,0 +1,19 @@
+{
+  "name": "shipenginehackathon",
+  "version": "1.0.0",
+  "description": "![Shimple](https://i.imgur.com/QJ5fykf.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtyutyunik/ShipEngineHackathon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dtyutyunik/ShipEngineHackathon/issues"
+  },
+  "homepage": "https://github.com/dtyutyunik/ShipEngineHackathon#readme"
+}
