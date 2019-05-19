@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './RenderCarriers.css';
 
-export default function RenderCarriers(props){
+export default function RenderCarriers(props) {
 
   return(
     <div className='carriers'>

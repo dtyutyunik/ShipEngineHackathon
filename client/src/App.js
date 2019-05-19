@@ -303,9 +303,9 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route path="/login/" component={LogIn} />
-            <Route path="/signup/" component={SignUp} />
-            <Route path="/dashboard/" component={Dashboard} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
       </Router>
