@@ -39,7 +39,7 @@ const styles = theme => ({
     },
   },
   heroContent: {
-    maxWidth: 600,
+    maxWidth: 700,
     margin: '0 auto',
     padding: `${theme.spacing.unit * 8}px 0 ${theme.spacing.unit * 6}px`,
   },
@@ -66,14 +66,13 @@ const styles = theme => ({
 
 const tiers = [
   {
-    title: 'Free',
-    price: '0',
+    title: 'Orders',
     description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
   {
-    title: 'Pro',
+    title: 'Add Order',
     subheader: 'Most popular',
     price: '15',
     description: [
@@ -86,7 +85,7 @@ const tiers = [
     buttonVariant: 'contained',
   },
   {
-    title: 'Enterprise',
+    title: 'Shipment',
     price: '30',
     description: [
       '50 users included',
@@ -97,6 +96,7 @@ const tiers = [
     buttonText: 'Contact us',
     buttonVariant: 'outlined',
   },
+
 ];
 const footers = [
   {
@@ -127,27 +127,40 @@ function Home(props) {
       <AppBar position="static" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          <img src={require('../../assets/imgs/Shimplelogo.png')} className="fluid" alt="shimplelogo"  width="20%" height="20%"/>
+          <img src={require('../../assets/imgs/Shimplelogo.png')} className="shimple" alt="shimplelogo"  width="10%" height="10%"/>
 
             Shimple
           </Typography>
-          <Button>Features</Button>
-          <Button>Enterprise</Button>
-          <Button>Support</Button>
+          <Button>Orders</Button>
+          <Button>Shipment</Button>
+          <Button>Input Order</Button>
+          <Button>Acc Info</Button>
+
           <Button color="primary" variant="outlined">
-            Login
+            <a onClick={()=>this.handleView('login')}>Log In</a>
+
           </Button>
+          <br/>
+          <Button color="primary" variant="outlined">
+            
+            <a onClick={()=>this.handleView('signup')}>SignUp</a>
+          </Button>
+          
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Welcome To Shimple.
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <img src={require('../../assets/imgs/Shimplelogo.png')} className="shimple" alt="shimplelogo"  width="15%" height="10%"/>
+
+          <h1>Welcome to Shimple</h1>
+          </Typography> .
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" component="p">
-            Quickly build an effective pricing table for your potential customers with this layout.
-            It&apos;s built with default Material-UI components with little customization.
+            An effective way to scale your business.
+            "If it ain't Shimple&apos;it ain't right"
           </Typography>
         </div>
         {/* End hero unit */}
@@ -188,6 +201,7 @@ function Home(props) {
             </Grid>
           ))}
         </Grid>
+
       </main>
       {/* Footer */}
       <footer className={classNames(classes.footer, classes.layout)}>

@@ -1,0 +1,22 @@
+.carriers{
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+
+.carrierList{
+  width: 30%;
+  border: 1px solid blue;
+}
+
+.carriers>h1{
+
+width: 100vw;
+}
+
+img{
+  height: 100px;
+  width: 100px;
+}

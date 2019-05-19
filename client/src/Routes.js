@@ -5,6 +5,8 @@ import { Route, HashRouter, Switch } from 'react-router-dom'
 import Home from './components/Home/Home';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
+import TestLandPage from './components/TestLandPage/TestLandPage';
+
 // import ScrollToTop from './components/ScrollTop';
 
 export default props => (
@@ -14,7 +16,7 @@ export default props => (
           <Route exact path='/' component={ Home } />
           <Route exact path='/login' component={ LogIn } />
           <Route exact path='/signup' component={ SignUp } />
-          {/* <Route exact path='/cards' component={ Cards } /> */}
+          <Route exact path='/TestLandPage' component={TestLandPage} />
         </Switch>
       {/* </ScrollToTop> */}
     </HashRouter>
