@@ -6,7 +6,7 @@ export default function RenderCarriers(props){
   return(
     <div className='carriers'>
 
-    <h1>ShipMent Options</h1>
+    <h1>Shipment Options</h1>
 
     {props.carriers.map((i,index)=>{
       return(<div key={index} className='carrierList'>
