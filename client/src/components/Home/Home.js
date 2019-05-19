@@ -156,7 +156,7 @@ function Home(props) {
           <img src={require('../../assets/imgs/Shimplelogo.png')} className="shimple" alt="shimplelogo"  width="15%" height="10%"/>
 
           <h1>Welcome to Shimple</h1>
-          </Typography> .
+          </Typography> 
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" component="p">
           Centeralized shipping platform made for resellers to help organize manage shipment and orders from multiple carriers and selling platforms.            "If it ain't Shimple&apos;it ain't right"

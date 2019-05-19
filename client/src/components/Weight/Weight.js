@@ -1,28 +1,31 @@
-import React, {Component} from 'react';
-// import React from 'react';
+// import React, {Component} from 'react';
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { Button } from '@material-ui/core';
 
 
+
 export default function Weight(props){
 
     return(
       <div>
-      <h1>Weignt</h1>
-      <form onSubmit={props.handleSubmit}>
-        <input type='text'
-        placeholder='value'
+      <h3>Weight</h3>
+
+        <TextField type='text'
+        label='Value'
         name='value'
         value={props.value}
         onChange={props.handleChange}
+        onSubmit={props.handleSubmit}
         />
 
 
@@ -32,8 +35,9 @@ export default function Weight(props){
           <option value="Gram">Gram</option>
           <option value="Kilogram">Kilogram</option>
         </select>
-        <button type='submit'>Calculate prices</button>
-      </form>
+
+        <Button type='submit'>Calculate prices</Button>
+
       </div>
     )}
 

@@ -307,7 +307,6 @@ class App extends Component {
       <div className="App">
           {/* <Routes /> */}
 
-    {/* <h1>Welcome to our APP</h1> */}
     <HashRouter>
     <Switch>
     {/* <Route exact path='/' component={ Home } /> */}

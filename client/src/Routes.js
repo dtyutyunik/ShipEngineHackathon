@@ -14,7 +14,7 @@ export default props => (
       {/* <ScrollToTop> */}
         <Switch>
           <Route exact path='/' component={ Home } />
-          <Route exact path='/login' component={ LogIn } />
+          <Route exact path='/Login' component={ LogIn } />
           <Route exact path='/signup' component={ SignUp } />
           <Route exact path='/TestLandPage' component={TestLandPage} />
         </Switch>

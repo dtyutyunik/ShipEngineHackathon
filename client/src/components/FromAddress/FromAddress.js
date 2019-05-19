@@ -1,57 +1,57 @@
 import React, {Component} from 'react';
 
+import TextField from '@material-ui/core/TextField';
+
 export default function FromAddress(props){
 
     return(
       <div>
-      <h1>From address</h1>
-      <form onSubmit={props.handleSubmit}>
-        <input type='text'
-        placeholder='name'
+  
+      <h3>From Address</h3>
+        <TextField type='text'
+        label='Name'
         name='name'
         value={props.name}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='phone'
-        name='phone'
-        value={props.phone}
+        <TextField type='text'
+        label='Phone'
+        name='Phone'
+        value={props.Phone}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='company_name'
+        <TextField type='text'
+        label='Company Name'
         name='company_name'
         value={props.company_name}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='address_line1'
+        <TextField type='text'
+        label='Address Line'
         name='address_line1'
         value={props.address_line1}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='city'
+        <TextField type='text'
+        label='City'
         name='city'
         value={props.city}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='state'
+        <TextField type='text'
+        label='State'
         name='state'
         value={props.state}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='zip'
+        <TextField type='text'
+        label='zip'
         name='zip'
         value={props.zip}
         onChange={props.handleChange}
+        onSubmit={props.handleSubmit}
+
         />
-
-
-  
-      </form>
 
       </div>
 
