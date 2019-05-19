@@ -268,8 +268,9 @@ class App extends Component {
     const{amount,ounces}=this.state.weight;
 
     const fromAddr = this.state.shipFromAddress;
+
     let navigationView='';
-    switch(navigationView){
+    switch(navView){
       case 'inputOrder': navigationView=
           <div>
             <ToAddress
