@@ -1,7 +1,7 @@
 ![Shimple](https://i.imgur.com/QJ5fykf.png)
 
 ## Concept ## 
-Centeralized shipping platform made for resellers to help organize manage shipment and orders from multiple carriers and selling platforms.
+Centralized shipping platform made for individual sellers to help organize manage shipment and orders from multiple carriers and selling platforms.
 
 ## Features ##
 
