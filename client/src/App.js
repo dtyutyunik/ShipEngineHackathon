@@ -6,11 +6,13 @@ import FromAddress from './components/FromAddress/FromAddress';
 import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
 import Weight from './components/Weight/Weight';
+import RenderCarriers from './components/RenderCarriers/RenderCarriers';
 import Fire from './firebase.js';
 import axios from 'axios';
 
 const SANDBOX_KEY = process.env.REACT_APP_SHIPENGINE_SANDBOX_API_KEY;
-const URL= 'http://localhost:8000';
+// const URL= 'http://localhost:8000';
+const URL= 'https://openerp2019.appspot.com/api/v1';
 
 
 class App extends Component {
@@ -22,6 +24,7 @@ class App extends Component {
       password:'',
       user: {},
       view: '',
+      navView: '',
       shipFromAddress:{
         name: '',
         phone: '',
@@ -44,7 +47,7 @@ class App extends Component {
       },
       weight:{
         value: '',
-        unit: ''
+        unit: 'Ounce'
       },
       package:[
         {
@@ -57,7 +60,8 @@ class App extends Component {
           trackingNum:'',
           shippingMethod:''
         }
-      ]
+      ],
+      carriers: [],
 
 
     })
@@ -171,7 +175,7 @@ class App extends Component {
     e.preventDefault();
     // axios.get(`${URL}/voting/${this.state.state}/${this.state.place}`);
     try{
-      let r=await axios.post(`${URL}/api/v1/validateaddress/`,{address:
+      let r=await axios.post(`${URL}/validateaddress/`,{address:
         data
       })
       console.log(r.data)
@@ -219,38 +223,24 @@ class App extends Component {
     }
   }
 
+  viewChange=(view)=>{
+    this.setState({
+      navView: view
+    })
+    console.log(view)
+  }
+
   calculatePackages=async(e)=>{
     e.preventDefault();
     console.log('packages');
 
-    // shipFromAddress:{
-    //   name: '',
-    //   phone: '',
-    //   company_name: '',
-    //   address_line1: '',
-    //   city: '',
-    //   state: '',
-    //   zip: '',
-    //   country: 'US'
-    // },
-    // shipToAddress:{
-    //   name: '',
-    //   phone: '',
-    //   company_name: '',
-    //   address_line1: '',
-    //   city: '',
-    //   state: '',
-    //   zip: '',
-    //   country: 'US'
-    // },
-    // weight:{
-    //   amount: '',
-    //   ounces: ''
-    // }
     try{
 
-      let r=await axios.post(`${URL}/api/v1/getRates/`,{toAddr:
+      let r=await axios.post(`${URL}/getRates/`,{toAddr:
         this.state.shipToAddress, fromAddr: this.state.shipFromAddress, weight: this.state.weight
+      })
+      this.setState({
+        carriers:r.data.status
       })
       console.log(r)
     }catch(e){
@@ -259,36 +249,16 @@ class App extends Component {
 
   }
   render(){
-    const {email,password}=this.state;
+    const {email,password,navView}=this.state;
     const {name,phone,company_name,address_line1,city,state,zip}=this.state.shipToAddress;
     // const {name,phone,company_name,address_line1,city,state,zip}=this.state.shipFromAddress;
     const{amount,ounces}=this.state.weight;
 
     const fromAddr = this.state.shipFromAddress;
 
-    return (
-      <div className="App">
-    <h1>Welcome to our APP</h1>
-      <a onClick={()=>this.handleView('signup')}>SignUp</a>
-      <br/>
-      <a onClick={()=>this.handleView('login')}>Log In</a>
-      {this.state.view==='signup'?
-      <SignUp
-        email={email}
-        password={password}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSignUp}
-      />:
-     <LogIn
-        email={email}
-        password={password}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSignin}
-        />}
-
-<button onClick={this.signOut}> signOut</button>
-
-
+    let navigationView=''
+    switch(navView){
+      case 'inputOrder': navigationView=<div>
       <ToAddress
         name={name}
         phone={phone}
@@ -317,7 +287,47 @@ class App extends Component {
         handleChange={this.handleWeight}
         handleSubmit={this.calculatePackages}
         />
+        </div>;
+        break;
+      case 'shipments': navigationView=<RenderCarriers carriers={this.state.carriers}/>; break;
+    }
+
+    return (
+      <div className="App">
+    <h1>Welcome to our APP</h1>
+      <a onClick={()=>this.handleView('signup')}>SignUp</a>
+      <br/>
+      <a onClick={()=>this.handleView('login')}>Log In</a>
+      {this.state.view==='signup'?
+      <SignUp
+        email={email}
+        password={password}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSignUp}
+      />:
+     <LogIn
+        email={email}
+        password={password}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSignin}
+        />}
+
+<button onClick={this.signOut}> signOut</button>
+
+<nav className='internalNav'>
+<a onClick={()=>this.viewChange('inputOrder')}>Input Order</a>
+<a onClick={()=>this.viewChange('shipments')}>shipments</a>
+</nav>
+
+
+<div>
+{navigationView}
+</div>
+
+
 <button onClick={this.processPackage}>show packages</button>
+
+
 
 
       </div>
@@ -326,3 +336,33 @@ class App extends Component {
 }
 
 export default App;
+
+
+// <ToAddress
+//   name={name}
+//   phone={phone}
+//   company_name={company_name}
+//   address_line1={address_line1}
+//   city={city}
+//   state={state}
+//   zip={zip}
+//   handleChange={this.handleAddressTo}
+//   handleSubmit={this.toAddressSubmited}/>
+//
+//   <FromAddress
+//     name={fromAddr.name}
+//     phone={fromAddr.phone}
+//     company_name={fromAddr.company_name}
+//     address_line1={fromAddr.address_line1}
+//     city={fromAddr.city}
+//     state={fromAddr.state}
+//     zip={fromAddr.zip}
+//     handleChange={this.handleAddressFrom}
+//     handleSubmit={this.toAddressSubmited}/>
+//
+//   <Weight
+//   state={fromAddr.state}
+//   zip={fromAddr.zip}
+//   handleChange={this.handleWeight}
+//   handleSubmit={this.calculatePackages}
+//   />

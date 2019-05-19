@@ -315,7 +315,7 @@ app.get(getCarriers, async (req, res) => {
 
 // estimate rates
 app.post(getRates, async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     if (!req.body.toAddr || !req.body.fromAddr || !req.body.weight) {
         return res.status(400).send({
             message: "Please provide all toAddr, fromAddr and weight"
@@ -350,8 +350,9 @@ app.post(getRates, async (req, res) => {
 
         console.log(response.data);
     } catch (e) {
+        console.log('error')
         console.log(e.response.data);
-        console.log(se_apikey);
+        // console.log(se_apikey);
     }
 
     return res.status(200).send({
@@ -365,7 +366,7 @@ app.post(getRates, async (req, res) => {
 //     .get(async (req, res) => { // get the tags by user name
 //         if (!req.query.order) {
 //             return res.status(401).send({
-//                 message: "Please provide order number" 
+//                 message: "Please provide order number"
 //             });
 //         }
 

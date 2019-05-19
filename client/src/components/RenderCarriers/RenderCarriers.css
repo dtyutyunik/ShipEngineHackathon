@@ -1,0 +1,21 @@
+.carriers{
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+}
+
+.carrierList{
+  width: 30%;
+  border: 1px solid blue;
+}
+
+.carriers>h1{
+
+  justify-content: center;
+  display: flex;
+  /* align-self: center; */
+  margin-left: 40%;
+  border: 1px solid yellow;
+}

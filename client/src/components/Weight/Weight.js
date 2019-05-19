@@ -12,12 +12,14 @@ export default function Weight(props){
         value={props.value}
         onChange={props.handleChange}
         />
-        <input type='text'
-        placeholder='ounces'
-        name='unit'
-        value={props.unit}
-        onChange={props.handleChange}
-        />
+
+
+        <select name='unit' value={props.unit} onChange={props.handleChange}>
+          <option value="Ounce">Ounce</option>
+          <option value="Pound">Pound</option>
+          <option value="Gram">Gram</option>
+          <option value="Kilogram">Kilogram</option>
+        </select>
         <button type='submit'>Calculate prices</button>
       </form>
 
