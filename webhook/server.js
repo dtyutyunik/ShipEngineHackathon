@@ -12,10 +12,12 @@ const https = require('https');      // Make the request to ShipEngine, FTL API
 const app = express();
 const cors = require('cors');
 const API_KEY=process.env.API_KEY;
+const {promisify} = require('util');
 
 
 const googleMapsClient = require('@google/maps').createClient({
-  key: process.env.GOOGLE_MAPS_API_KEY
+    key: process.env.GOOGLE_MAPS_API_KEY
+    // Promise: Promise
 });
 
 
@@ -32,14 +34,22 @@ const getCarriers = rootUrl + 'getcarriers/';
 const getRates = rootUrl + 'getrates/';
 const opTags = rootUrl + 'tags/';
 
+Number.prototype.toRadians = function() { return this * Math.PI / 180; };
 
 // Helper function
-const calDistBetweenCoords = function(lat1, lng1, lat2, lng2) {
+var calDistBetweenCoords = function(lat1, lng1, lat2, lng2) {
+    lat1 = Number(lat1);
+    lat2 = Number(lat2);
+    lng1 = Number(lng1);
+    lng2 = Number(lng2);
     var R = 6371e3; // metres
+
     var p1 = lat1.toRadians();
+
     var p2 = lat2.toRadians();
     var dlat = (lat2-lat1).toRadians();
     var dlng = (lng2-lng1).toRadians();
+
 
     var a = Math.sin(dlat/2) * Math.sin(dlat/2) +
             Math.cos(p1) * Math.cos(p2) *
@@ -139,18 +149,89 @@ app.get(getCarriers, async (req, res) => {
 
     // Find the carriers around the coordinates
     var res_fedex = [];
+    var res_usps = [];
     try {
-        await googleMapsClient.placesNearby({
-            keyword: "fedex",
-            location: req.query.lat+","+req.query.lng,
-            radius: 1500
-        }, function(err, response) {
-            if (!err) {
-                for (var value of response.json.results) {
+
+        // var fedex_res = new Promise(function(resolve, reject) {
+        //     googleMapsClient.placesNearby({
+        //     keyword: "fedex",
+        //     location: req.query.lat+","+req.query.lng,
+        //     radius: 1500
+        //     }, function(err, response) {
+        //         if (!err) {
+        //             resolve(
+        //                 () => {
+        //                     response.json.results.map(function (value) {
+        //                         let lat1 = req.query.lat;
+        //                         let lng1 = req.query.lng;
+        //                         let lat2 = value["geometry"]["location"]["lat"];
+        //                         let lng2 = value["geometry"]["location"]["lng"];
+
+
+        //                         res_fedex.push(
+        //                             {
+        //                                 name: value["name"],
+        //                                 distance: calDistBetweenCoords(lat1, lng1, lat2, lng2)
+        //                             }
+        //                         );
+
+        //                     });
+        //                 }
+        //             );
+
+        //         }
+        //     });
+
+
+
+        // });
+
+        // var usps_res = new Promise(function(resolve, reject) {
+        //      googleMapsClient.placesNearby({
+        //     keyword: "usps",
+        //     location: req.query.lat+","+req.query.lng,
+        //     radius: 1500
+        //     }, function(err, response) {
+        //         if (!err) {
+        //             resolve(
+        //                 () => {
+        //                     response.json.results.map(function (value) {
+        //                         let lat1 = req.query.lat;
+        //                         let lng1 = req.query.lng;
+        //                         let lat2 = value["geometry"]["location"]["lat"];
+        //                         let lng2 = value["geometry"]["location"]["lng"];
+        //                         res_usps.push(
+        //                             {
+        //                                 name: value["name"],
+        //                                 distance: calDistBetweenCoords(lat1, lng1, lat2, lng2)
+        //                             }
+        //                         );
+
+        //                     });
+
+        //                 }
+        //             );
+
+        //         }
+        //     });
+
+
+
+        // });
+        const places_nearby = promisify(googleMapsClient.placesNearby);
+
+        try {
+            var fedex_res = await places_nearby({
+                keyword: "fedex",
+                location: req.query.lat+","+req.query.lng,
+                radius: 1500
+            });
+          fedex_res.json.results.map(function (value) {
                     let lat1 = req.query.lat;
                     let lng1 = req.query.lng;
                     let lat2 = value["geometry"]["location"]["lat"];
                     let lng2 = value["geometry"]["location"]["lng"];
+
 
                     res_fedex.push(
                         {
@@ -158,15 +239,77 @@ app.get(getCarriers, async (req, res) => {
                             distance: calDistBetweenCoords(lat1, lng1, lat2, lng2)
                         }
                     );
-                }
-                console.log(res_fedex);
-            }
-        });
+
+                });
+
+        } catch (e) {
+            console.log(e);
+        }
+
+        try {
+            var usps_res = await places_nearby({
+                keyword: "usps",
+                location: req.query.lat+","+req.query.lng,
+                radius: 1500
+            });
+          usps_res.json.results.map(function (value) {
+                    let lat1 = req.query.lat;
+                    let lng1 = req.query.lng;
+                    let lat2 = value["geometry"]["location"]["lat"];
+                    let lng2 = value["geometry"]["location"]["lng"];
+
+
+                    res_usps.push(
+                        {
+                            name: value["name"],
+                            distance: calDistBetweenCoords(lat1, lng1, lat2, lng2)
+                        }
+                    );
+
+                });
+
+        } catch (e) {
+            console.log(e);
+        }
+
+
+        // var usps_res = googleMapsClient.placesNearby({
+        //     keyword: "usps",
+        //     location: req.query.lat+","+req.query.lng,
+        //     radius: 1500
+        // }, function(err, response) {
+        //     if (!err) {
+
+        //         response.json.results.map(function (value) {
+        //             let lat1 = req.query.lat;
+        //             let lng1 = req.query.lng;
+        //             let lat2 = value["geometry"]["location"]["lat"];
+        //             let lng2 = value["geometry"]["location"]["lng"];
+
+
+        //             res_usps.push(
+        //                 {
+        //                     name: value["name"],
+        //                     distance: calDistBetweenCoords(lat1, lng1, lat2, lng2)
+        //                 }
+        //             );
+
+        //         });
+
+        //     }
+        // });
+        // console
+
+        // Promise.all([fedex_res, usps_res]).then(function(values) {
+        //       console.log(values[0]);
+        // });
+
+
+        res.status(200).send({message: {"fedex": res_fedex, "usps": res_usps}});
     } catch (e) {
         console.log(e);
     }
 
-    return res.status(200).send({message: res_fedex});
 
 })
 
