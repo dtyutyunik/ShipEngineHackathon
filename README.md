@@ -1,16 +1,19 @@
-# Shimple #
+![Shimple](https://i.imgur.com/QJ5fykf.png)
+
 ## Concept ## 
-Shipping platform made for resellers to help organize shipment and orders. Centeralized platform for orders and shipments throughout selling platforms. 
+Centeralized shipping platform made for resellers to help organize manage shipment and orders from multiple carriers and selling platforms.
 
 ## Features ##
-+ Import orders from different selling platform to keep 
-+ Offers price comparision through different carriers 
-+ Offer shipping center location comparisions 
-+ Tag orders to help organize and consolidate shipments 
-+ Keep track of all shipments 
+
++ Help organize and manage shipping for orders by a tagging and filter system. 
++ Import orders from different selling platforms to keep all data centeralized for easy management and tracking.  
++ Offers price comparision through different carriers based on specific shipping needs per order. 
++ Offer carrier center location comparisions based on geolocation. 
++ Keep track of all shipment statuses regardless of carrier used. 
++ Purchase and make multiple shipping labels from multiple carriers at once. 
 
 ## Development Tools ##
-+ Frontend: Wireframe Scratch, React.js
++ Frontend: Figma, React.js
 + Backend: Node + RESTful API
 
 ## SDKs ##
