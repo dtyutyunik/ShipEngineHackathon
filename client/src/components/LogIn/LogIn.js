@@ -48,7 +48,7 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
+function LogIn(props) {
   const { classes } = props;
 
     return (
@@ -81,9 +81,8 @@ function SignIn(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-
         >
-            <NavLink to="/dashboard">Log In</NavLink>
+            {/* <NavLink to="/Home">Log In</NavLink> */}
           </Button>
         </form>
       </Paper>
@@ -91,9 +90,9 @@ function SignIn(props) {
   );
 }
 
-SignIn.propTypes = {
+LogIn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(LogIn);
 

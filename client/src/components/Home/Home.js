@@ -136,15 +136,15 @@ function Home(props) {
           <Button>Input Order</Button>
           <Button>Acc Info</Button>
 
-          <Button color="primary" variant="outlined">
+          {/* <Button color="primary" variant="outlined">
             <a onClick={()=>this.handleView('login')}>Log In</a>
 
-          </Button>
+          </Button> */}
           <br/>
-          <Button color="primary" variant="outlined">
+          {/* <Button color="primary" variant="outlined">
             
             <a onClick={()=>this.handleView('signup')}>SignUp</a>
-          </Button>
+          </Button> */}
           
         </Toolbar>
       </AppBar>
@@ -156,7 +156,7 @@ function Home(props) {
           <img src={require('../../assets/imgs/Shimplelogo.png')} className="shimple" alt="shimplelogo"  width="15%" height="10%"/>
 
           <h1>Welcome to Shimple</h1>
-          </Typography> 
+          </Typography> .
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" component="p">
           Centeralized shipping platform made for resellers to help organize manage shipment and orders from multiple carriers and selling platforms.            "If it ain't Shimple&apos;it ain't right"

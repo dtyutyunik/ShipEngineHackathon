@@ -126,7 +126,6 @@ const {classes} = this;
             variant="contained"
             color="primary"
             className={classes.submit}
-
           >
             Sign Up
           </Button>
