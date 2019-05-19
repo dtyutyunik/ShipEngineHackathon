@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Switch, Route } from "react-router-dom";
+import { Switch,HashRouter, Route } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
+import Routes from './Routes';
+// import Home from './components/Home/Home';
 import ToAddress from './components/ToAddress/ToAddress';
 import FromAddress from './components/FromAddress/FromAddress';
 import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
-import Home from './components/Home/Home';
 import Weight from './components/Weight/Weight';
+import Button from '@material-ui/core/Button';
 import Fire from './firebase.js';
 import axios from 'axios';
 
@@ -16,12 +18,6 @@ const URL= 'http://localhost:8000';
 
 
 class App extends Component {
-  // render() {
-  //   return (
-  //       <LogIn/>
-  //   );
-  // }
-
 
   constructor(props){
     super(props);
@@ -237,30 +233,6 @@ class App extends Component {
     e.preventDefault();
     console.log('packages');
 
-    // shipFromAddress:{
-    //   name: '',
-    //   phone: '',
-    //   company_name: '',
-    //   address_line1: '',
-    //   city: '',
-    //   state: '',
-    //   zip: '',
-    //   country: 'US'
-    // },
-    // shipToAddress:{
-    //   name: '',
-    //   phone: '',
-    //   company_name: '',
-    //   address_line1: '',
-    //   city: '',
-    //   state: '',
-    //   zip: '',
-    //   country: 'US'
-    // },
-    // weight:{
-    //   amount: '',
-    //   ounces: ''
-    // }
     try{
 
       let r=await axios.post(`${URL}/api/v1/getRates/`,{toAddr:
@@ -282,10 +254,21 @@ class App extends Component {
 
     return (
       <div className="App">
-    <h1>Welcome to our APP</h1>
+          {/* <Routes /> */}
+
+    {/* <h1>Welcome to our APP</h1> */}
+    <HashRouter>
+    <Switch>
+    {/* <Route exact path='/' component={ Home } /> */}
+    <Routes />
+
+    </Switch>
+    </HashRouter>
+   
       <a onClick={()=>this.handleView('signup')}>SignUp</a>
       <br/>
       <a onClick={()=>this.handleView('login')}>Log In</a>
+      
       
       {this.state.view==='signup'?
       <SignUp
@@ -295,6 +278,7 @@ class App extends Component {
         handleSubmit={this.handleSignUp}
       />:
       this.state.view === "login" ? 
+      
      <LogIn
         email={email}
         password={password}
@@ -303,7 +287,8 @@ class App extends Component {
         />:
         ""
         }
-<button onClick={this.signOut}> signOut</button>
+        
+<Button onClick={this.signOut}> signOut</Button>
 
       <ToAddress
         name={name}
@@ -333,12 +318,14 @@ class App extends Component {
         handleChange={this.handleWeight}
         handleSubmit={this.calculatePackages}
         />
+        
 <button onClick={this.processPackage}>show packages</button>
 
 
       </div>
     
     );
+    
   }
 }
 
