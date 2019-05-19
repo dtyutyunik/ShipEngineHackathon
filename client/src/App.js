@@ -132,8 +132,7 @@ class App extends Component {
 
   handleAddressTo=(e)=>{
     const {name,value}=e.target;
-    console.log(e)
-    console.log('address ', name, ' ', value)
+
     this.setState(prevState=>({
         shipToAddress:{
           ...prevState.shipToAddress,
@@ -261,6 +260,11 @@ class App extends Component {
     }
 
   }
+
+  buyThis=(e)=>{
+    console.log(e)
+    console.log('vuy this clicked')
+  }
   render(){
     const {email,password,navView}=this.state;
     const {name,phone,company_name,address_line1,city,state,zip}=this.state.shipToAddress;
@@ -303,7 +307,9 @@ class App extends Component {
             />
             </div>;
             break;
-          case 'shipments': navigationView=<RenderCarriers carriers={this.state.carriers}/>; break;
+          case 'shipments': navigationView=<RenderCarriers
+          carriers={this.state.carriers}
+          buyThis={this.buyThis}/>; break;
 
     }
 
