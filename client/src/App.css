@@ -10,3 +10,8 @@
   width: 100vw;
   height: 100px;
 }
+
+.navigationView{
+  border: 2px solid red;
+  height: 500px;
+}

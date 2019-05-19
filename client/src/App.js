@@ -32,11 +32,7 @@ class App extends Component {
       password:'',
       user: {},
       view: '',
-<<<<<<< HEAD
       navView: '',
-=======
-
->>>>>>> 7a5df65bd3134474962e2e185e505d0aeb310f3d
       shipFromAddress:{
         name: '',
         phone: '',
@@ -272,70 +268,44 @@ class App extends Component {
     const{amount,ounces}=this.state.weight;
 
     const fromAddr = this.state.shipFromAddress;
+    let navigationView='';
+    switch(navigationView){
+      case 'inputOrder': navigationView=
+          <div>
+            <ToAddress
+            name={name}
+            phone={phone}
+            company_name={company_name}
+            address_line1={address_line1}
+            city={city}
+            state={state}
+            zip={zip}
+            handleChange={this.handleAddressTo}
+            handleSubmit={this.toAddressSubmited}/>
 
-<<<<<<< HEAD
-    let navigationView=''
-    switch(navView){
-      case 'inputOrder': navigationView=<div>
-=======
-    return (
-      <div className="App">
-    <h1>Welcome to our APP</h1>
-      <a onClick={()=>this.handleView('signup')}>SignUp</a>
-      <br/>
-      <a onClick={()=>this.handleView('login')}>Log In</a>
-      
-      {this.state.view==='signup'?
-      <SignUp
-        email={email}
-        password={password}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSignUp}
-      />:
-      this.state.view === "login" ? 
-     <LogIn
-        email={email}
-        password={password}
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSignin}
-        />:
-        ""
-        }
-<button onClick={this.signOut}> signOut</button>
+            <FromAddress
+              name={fromAddr.name}
+              phone={fromAddr.phone}
+              company_name={fromAddr.company_name}
+              address_line1={fromAddr.address_line1}
+              city={fromAddr.city}
+              state={fromAddr.state}
+              zip={fromAddr.zip}
+              handleChange={this.handleAddressFrom}
+              handleSubmit={this.toAddressSubmited}/>
 
->>>>>>> 7a5df65bd3134474962e2e185e505d0aeb310f3d
-      <ToAddress
-        name={name}
-        phone={phone}
-        company_name={company_name}
-        address_line1={address_line1}
-        city={city}
-        state={state}
-        zip={zip}
-        handleChange={this.handleAddressTo}
-        handleSubmit={this.toAddressSubmited}/>
+            <Weight
+            state={fromAddr.state}
+            zip={fromAddr.zip}
+            handleChange={this.handleWeight}
+            handleSubmit={this.calculatePackages}
+            />
+            </div>;
+            break;
+          case 'shipments': navigationView=<RenderCarriers carriers={this.state.carriers}/>; break;
 
-        <FromAddress
-          name={fromAddr.name}
-          phone={fromAddr.phone}
-          company_name={fromAddr.company_name}
-          address_line1={fromAddr.address_line1}
-          city={fromAddr.city}
-          state={fromAddr.state}
-          zip={fromAddr.zip}
-          handleChange={this.handleAddressFrom}
-          handleSubmit={this.toAddressSubmited}/>
-
-        <Weight
-        state={fromAddr.state}
-        zip={fromAddr.zip}
-        handleChange={this.handleWeight}
-        handleSubmit={this.calculatePackages}
-        />
-        </div>;
-        break;
-      case 'shipments': navigationView=<RenderCarriers carriers={this.state.carriers}/>; break;
     }
+
 
     return (
       <div className="App">
@@ -359,13 +329,14 @@ class App extends Component {
 
 <button onClick={this.signOut}> signOut</button>
 
+
 <nav className='internalNav'>
 <a onClick={()=>this.viewChange('inputOrder')}>Input Order</a>
 <a onClick={()=>this.viewChange('shipments')}>shipments</a>
 </nav>
 
 
-<div>
+<div className="navigationView">
 {navigationView}
 </div>
 
@@ -373,42 +344,23 @@ class App extends Component {
 <button onClick={this.processPackage}>show packages</button>
 
 
-
-
       </div>
-    
+
     );
   }
 }
 
 export default App;
 
-
-// <ToAddress
-//   name={name}
-//   phone={phone}
-//   company_name={company_name}
-//   address_line1={address_line1}
-//   city={city}
-//   state={state}
-//   zip={zip}
-//   handleChange={this.handleAddressTo}
-//   handleSubmit={this.toAddressSubmited}/>
+// <nav className='internalNav'>
+// <a onClick={()=>this.viewChange('inputOrder')}>Input Order</a>
+// <a onClick={()=>this.viewChange('shipments')}>shipments</a>
+// </nav>
 //
-//   <FromAddress
-//     name={fromAddr.name}
-//     phone={fromAddr.phone}
-//     company_name={fromAddr.company_name}
-//     address_line1={fromAddr.address_line1}
-//     city={fromAddr.city}
-//     state={fromAddr.state}
-//     zip={fromAddr.zip}
-//     handleChange={this.handleAddressFrom}
-//     handleSubmit={this.toAddressSubmited}/>
 //
-//   <Weight
-//   state={fromAddr.state}
-//   zip={fromAddr.zip}
-//   handleChange={this.handleWeight}
-//   handleSubmit={this.calculatePackages}
-//   />
+// <div>
+// {navigationView}
+// </div>
+//
+//
+// <button onClick={this.processPackage}>show packages</button>
