@@ -1,10 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Switch, Route } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 import ToAddress from './components/ToAddress/ToAddress';
 import FromAddress from './components/FromAddress/FromAddress';
 import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
+import Home from './components/Home/Home';
 import Weight from './components/Weight/Weight';
 import RenderCarriers from './components/RenderCarriers/RenderCarriers';
 import Fire from './firebase.js';
@@ -16,6 +18,12 @@ const URL= 'https://openerp2019.appspot.com/api/v1';
 
 
 class App extends Component {
+  // render() {
+  //   return (
+  //       <LogIn/>
+  //   );
+  // }
+
 
   constructor(props){
     super(props);
@@ -24,7 +32,11 @@ class App extends Component {
       password:'',
       user: {},
       view: '',
+<<<<<<< HEAD
       navView: '',
+=======
+
+>>>>>>> 7a5df65bd3134474962e2e185e505d0aeb310f3d
       shipFromAddress:{
         name: '',
         phone: '',
@@ -35,6 +47,7 @@ class App extends Component {
         zip: '',
         country: 'US'
       },
+
       shipToAddress:{
         name: '',
         phone: '',
@@ -45,10 +58,12 @@ class App extends Component {
         zip: '',
         country: 'US'
       },
+
       weight:{
         value: '',
         unit: 'Ounce'
       },
+
       package:[
         {
           shipToAdress: '',
@@ -99,15 +114,16 @@ class App extends Component {
     console.log('signed out')
   }
 
-  handleSignUp=(e)=>{
-    e.preventDefault();
-    Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
-              }).catch(function(error) {
-                console.log(error)
-              });
+  // handleSignUp=(e)=>{
+  //   e.preventDefault();
+  //   Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
+  //             }).catch(function(error) {
+  //               console.log(error)
+  //             });
 
-    console.log('signed up')
-  }
+  //   console.log('signed up')
+  // }
+
   handleSignin=(e)=>{
     e.preventDefault();
     Fire.fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then({
@@ -185,10 +201,11 @@ class App extends Component {
 
   }
 
-  handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log('submitted')
-  }
+  // handleSubmit=(e)=>{
+  //   e.preventDefault();
+  //   console.log('submitted')
+  // }
+
   handleView=(e)=>{
     this.setState({view: e})
   }
@@ -256,9 +273,37 @@ class App extends Component {
 
     const fromAddr = this.state.shipFromAddress;
 
+<<<<<<< HEAD
     let navigationView=''
     switch(navView){
       case 'inputOrder': navigationView=<div>
+=======
+    return (
+      <div className="App">
+    <h1>Welcome to our APP</h1>
+      <a onClick={()=>this.handleView('signup')}>SignUp</a>
+      <br/>
+      <a onClick={()=>this.handleView('login')}>Log In</a>
+      
+      {this.state.view==='signup'?
+      <SignUp
+        email={email}
+        password={password}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSignUp}
+      />:
+      this.state.view === "login" ? 
+     <LogIn
+        email={email}
+        password={password}
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSignin}
+        />:
+        ""
+        }
+<button onClick={this.signOut}> signOut</button>
+
+>>>>>>> 7a5df65bd3134474962e2e185e505d0aeb310f3d
       <ToAddress
         name={name}
         phone={phone}
@@ -331,6 +376,7 @@ class App extends Component {
 
 
       </div>
+    
     );
   }
 }
