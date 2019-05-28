@@ -9,7 +9,7 @@ import LogIn from './components/LogIn/LogIn';
 import Home from './components/Home/Home';
 import Weight from './components/Weight/Weight';
 import RenderCarriers from './components/RenderCarriers/RenderCarriers';
-import Fire from './firebase.js';
+// import Fire from './firebase.js';
 import axios from 'axios';
 import LandingPage from './components/LandingPage/LandingPage';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -74,14 +74,14 @@ class App extends Component {
   }
 
   authListener = () => {
-    Fire.fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({user});
-        console.log(user);
-      } else {
-        this.setState({user:null})
-      }
-    });
+    // Fire.fire.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.setState({user});
+    //     console.log(user);
+    //   } else {
+    //     this.setState({user:null})
+    //   }
+    // });
   }
 
 
@@ -92,19 +92,19 @@ class App extends Component {
 
 
   signOut = () => {
-    Fire.fire.auth().signOut();
-    console.log('signed out')
+    // Fire.fire.auth().signOut();
+    // console.log('signed out')
   }
 
   handleSignin = (e) => {
     e.preventDefault();
-    Fire.fire
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then()
-      .catch(function(error) {
-        console.log(error)
-      });
+    // Fire.fire
+    //   .auth()
+    //   .signInWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then()
+    //   .catch(function(error) {
+    //     console.log(error)
+    //   });
     console.log('logeed in')
   }
 
@@ -199,16 +199,16 @@ class App extends Component {
     const {uid}=this.state.user;
     if(!!uid){
 
-        Fire.database.ref('PackageOrders/' + `${uid}`).push({
-        shipToAdress: '',
-        shipfromAddress: '',
-        orderNum: '',
-        weight: '',
-        tags: '',
-        carrierSelected: '',
-        trackingNum:'',
-        shippingMethod:''
-      });
+        // Fire.database.ref('PackageOrders/' + `${uid}`).push({
+        // shipToAdress: '',
+        // shipfromAddress: '',
+        // orderNum: '',
+        // weight: '',
+        // tags: '',
+        // carrierSelected: '',
+        // trackingNum:'',
+        // shippingMethod:''
+      // });
       console.log('created')
     }else{
       console.log('false')

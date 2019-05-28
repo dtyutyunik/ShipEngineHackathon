@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Fire from '../../firebase';
+// import Fire from '../../firebase';
 import WelcomeBanner from '../WelcomeBanner/WelcomeBanner';
 
 
@@ -65,10 +65,10 @@ class SignUp extends Component {
   }
   handleSignUp=(e)=>{
     e.preventDefault();
-    Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
-              }).catch(function(error) {
-                console.log(error)
-              });
+    // Fire.fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then({
+    //           }).catch(function(error) {
+    //             console.log(error)
+    //           });
 
     console.log('signed up')
   }
